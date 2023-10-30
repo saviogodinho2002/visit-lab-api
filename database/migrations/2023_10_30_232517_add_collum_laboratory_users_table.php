@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('login')->unique();
-            $table->string('password');
-            $table->string('photo_url');
+        Schema::table('users', function (Blueprint $table) {
 
-            $table->rememberToken();
-            $table->timestamps();
+            $table->foreignIdFor(\App\Models\Laboratory::class)->constrained();
+
         });
     }
 
@@ -28,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+
+           $table->dropConstrainedForeignIdFor(\App\Models\Laboratory::class);
+        });
     }
 };

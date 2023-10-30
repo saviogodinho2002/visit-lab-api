@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pre_registrations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('login')->unique();
-            $table->string('password');
-            $table->string('photo_url');
-
-            $table->rememberToken();
+            $table->string("login");
+            $table->boolean("registered")->default(false);
+            $table->foreignIdFor(\App\Models\Role::class)->constrained();//cargo
+            $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pre_registrations');
     }
 };

@@ -22,6 +22,7 @@ class UserController extends Controller
          *
          * Se ja existir, atualiza os dados na base local
          * */
+
         return response()->json("") ;
 
     }
