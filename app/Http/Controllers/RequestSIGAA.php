@@ -13,7 +13,7 @@ class RequestSIGAA{
     }
 
     public static function get_info_user(string $login){
-        return self::make_request('usuario/v1/usuarios?login=' . $login)["body"];
+            return self::make_request('usuario/v1/usuarios?login=' . $login)["body"];
     }
 
     public static function make_request(string $url, int $time = 0){

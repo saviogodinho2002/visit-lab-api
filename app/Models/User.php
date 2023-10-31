@@ -19,8 +19,11 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'login',
         'password',
+        'photo_url',
+        'laboratory_id',
+
     ];
 
     /**
@@ -39,7 +42,10 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+
         'password' => 'hashed',
     ];
+    public function laboratory(){
+        return $this->belongsTo(Laboratory::class);
+    }
 }

@@ -23,7 +23,7 @@ class UserController extends Controller
          * Se ja existir, atualiza os dados na base local
          * */
 
-        return response()->json("") ;
+        return response()->json(RequestSIGAA::get_info_user($data["login"])) ;
 
     }
 }

@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string("login");
             $table->boolean("registered")->default(false);
             $table->foreignIdFor(\App\Models\Role::class)->constrained();//cargo
+            $table->foreignIdFor(\App\Models\Laboratory::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\User::class)->constrained();
+
             $table->timestamps();
         });
     }
