@@ -91,6 +91,20 @@ class UserController extends Controller
     function me(Request $request){
         return  response()->json($request->user()) ;
     }
+    function getUserByLogin(Request $request){
+
+        $data = $request->all();
+        $info = null;
+        if(isset($data["login"]) && !is_null($data["login"])){
+            try {
+
+                $info = RequestSIGAA::get_info_user($data["login"]);
+            }catch (\Throwable $e){
+
+            }
+        }
+        return  response()->json($info) ;
+    }
 
 
 }

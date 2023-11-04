@@ -16,6 +16,7 @@ class PreRegistration extends Model
     protected $fillable =
         [
             "login",
+            "email",
             "registered",
             "role_id",
             "user_id",

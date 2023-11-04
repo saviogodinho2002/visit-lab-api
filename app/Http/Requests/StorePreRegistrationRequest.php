@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePreRegistrationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StorePreRegistrationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return !is_null( request()->user());
     }
 
     /**
@@ -22,7 +23,9 @@ class StorePreRegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "login"=>["required"],
+            "role_id"=>["required"],
+            "laboratory_id"=>[]
         ];
     }
 }

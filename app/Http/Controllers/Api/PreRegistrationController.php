@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePreRegistrationRequest;
 use App\Http\Requests\UpdatePreRegistrationRequest;
 use App\Models\PreRegistration;
+use Illuminate\Http\Request;
 
 class PreRegistrationController extends Controller
 {
@@ -13,7 +15,7 @@ class PreRegistrationController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(PreRegistration::get());
     }
 
     /**
@@ -24,17 +26,25 @@ class PreRegistrationController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePreRegistrationRequest $request)
+
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate(
+            [
+                "login"=>["required"],
+                "email"=>["required"],
+                "role_id"=>["required"],
+                "laboratory_id"=>[]
+            ]
+        );
+        $register  =  PreRegistration::create(
+           $validated
+        );
+
+       return response()->json($register);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(PreRegistration $preRegistration)
     {
         //

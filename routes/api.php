@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('login',[\App\Http\Controllers\Api\UserController::class,"loginUser"]);
 
 Route::middleware('auth:sanctum')->group(function (){
+
     Route::get('/user/me',[\App\Http\Controllers\Api\UserController::class,"me"]);
+    Route::get("user{login?}",[\App\Http\Controllers\Api\UserController::class,"getUserByLogin"]);
+
+    Route::get("/pre-registration/",[\App\Http\Controllers\Api\PreRegistrationController::class,"index"]);
+    Route::post("/pre-registration/store/",[\App\Http\Controllers\Api\PreRegistrationController::class,"store"]);
 
 });
