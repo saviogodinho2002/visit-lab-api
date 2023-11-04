@@ -1,0 +1,59 @@
+openapi: 3.0.0
+info:
+  title: 'Api Visit Lab'
+  contact:
+    email: saviogmoiagaia@gmail.com
+  version: 3.0.0
+paths:
+  /api/login:
+    post:
+      tags:
+        - Usuario
+      summary: 'Loga um  usuário.'
+      description: Loga
+      operationId: 7716aff3e5de668956e4c3802154391b
+      requestBody:
+        description: 'Json com login e senha do usuario'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - login
+                - password
+              properties:
+                login:
+                  description: 'Login do usuario'
+                  type: string
+                password:
+                  description: 'Senha do usuario'
+                  type: string
+              type: object
+      responses:
+        '200':
+          description: Logado
+          content:
+            application/json:
+              schema:
+                properties:
+                  token: { type: string }
+                type: object
+        '422':
+          description: 'Formulário inválido'
+          content:
+            application/json:
+              schema:
+                properties:
+                  status: { type: string }
+                  message: { type: string }
+                type: object
+      security:
+        -
+          bearerToken: []
+components:
+  securitySchemes:
+    bearerToken:
+      type: http
+      description: 'Acess token obtido na autenticação'
+      bearerFormat: JWT
+      scheme: bearer

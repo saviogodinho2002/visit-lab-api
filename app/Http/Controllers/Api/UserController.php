@@ -14,9 +14,90 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use PhpParser\Node\Stmt\TryCatch;
 
+
+/**
+ * @OA\Info(
+ *   title="Api Visit Lab",
+ *   version="3.0.0",
+ *   @OA\Contact(
+ *     email="saviogmoiagaia@gmail.com"
+ *   )
+ * ),
+ ** @OA\SecurityScheme(
+ *  type="http",
+ *  description="Acess token obtido na autenticação",
+
+ *  scheme="bearer",
+ *  bearerFormat="JWT",
+ *  securityScheme="bearerToken"
+ * )
+
+ */
+
 class UserController extends Controller
 {
-    //
+
+    /**
+     * Loga um  usuário.
+     *
+     *
+     * @OA\Post(
+     *      tags={"Usuario"},
+     *     path="/api/login",
+     *     description="Loga",
+     *         security={ {"bearerToken":{}} },
+     *     @OA\RequestBody(
+     *         description="Json com login e senha do usuario",
+     *         required=true,
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *
+     *     @OA\Schema(
+                type="object",
+     *                 required={
+     *     "login",
+     *     "password",
+     *
+     *
+     *
+     * },
+     *     @OA\Property (
+     *         property="login",
+     *         description="Login do usuario",
+     *          type="string"
+     *     ),
+
+     *     @OA\Property(
+     *         property="password",
+     *
+     *         description="Senha do usuario",
+     *           type="string"
+     *     ),
+
+     *
+     *
+     *     ),
+     * ),
+     * ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Logado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="token", type="string"),
+     *    )
+     *  ),
+     *     @OA\Response(
+     *    response=422,
+     *    description="Formulário inválido",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="status", type="string"),
+     *       @OA\Property(property="message", type="string"),
+     *    )
+     *  )
+     *
+     * )
+     */
+
     public function loginUser(Request $request)
     {
         $data = $request->all();
