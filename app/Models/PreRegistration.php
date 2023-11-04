@@ -19,7 +19,8 @@ class PreRegistration extends Model
             "registered",
             "role_id",
             "user_id",
-            "laboratory_id"
+            "laboratory_id",
+
         ];
     protected $casts =[
      "registered"=>"bool"

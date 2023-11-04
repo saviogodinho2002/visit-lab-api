@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('pre_registrations', function (Blueprint $table) {
             $table->id();
             $table->string("login");
+            $table->string("email");
             $table->boolean("registered")->default(false);
             $table->foreignIdFor(\App\Models\Role::class)->constrained();//cargo
             $table->foreignIdFor(\App\Models\Laboratory::class)->nullable()->constrained();
-            $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained();
 
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->foreignIdFor(\App\Models\Laboratory::class)->constrained();
+            $table->foreignIdFor(\App\Models\Laboratory::class)->nullable()->constrained();
 
         });
     }

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 class SIGAALogin{
 
 
-
+    /**
+     * @throws \Exception
+     */
     public static function login_sigaa(string $login, string $password){
         $response = self::make_request(env("API_AUTHENTICATION_SIGAA") . '/sso-server/login');
         $lt_execution = self::get_lt_and_execution($response["body"]);
@@ -14,6 +16,9 @@ class SIGAALogin{
         return self::validate($jsession, $lt_execution["lt"], $lt_execution["execution"], $login, $password);
     }
 
+    /**
+     * @throws \Exception
+     */
     private static function validate(string $jsession, string $lt, string $execution, string $login, string $password){
         $ch = curl_init();
 
@@ -38,6 +43,10 @@ class SIGAALogin{
 
         $result = curl_exec($ch);
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if (curl_errno($ch) == CURLE_OPERATION_TIMEOUTED) {
+            // Trate o timeout aqui, por exemplo, lançando uma exceção ou retornando false.
+            return throw new \Exception("Timeout");
+        }
         $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         curl_close($ch);
 
