@@ -26,12 +26,12 @@ use PhpParser\Node\Stmt\TryCatch;
  ** @OA\SecurityScheme(
  *  type="http",
  *  description="Acess token obtido na autenticação",
-
+ *   name="Authorization",
+ *   in="header",
  *  scheme="bearer",
  *  bearerFormat="JWT",
  *  securityScheme="bearerToken"
  * )
-
  */
 
 class UserController extends Controller
@@ -168,10 +168,34 @@ class UserController extends Controller
 
 
     }
-
+    /**
+     * @OA\Get(
+     *     path="/api/user/me",
+     *     tags={"Usuario"},
+     *     summary="Retorna o usuario corrente",
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Response(response="200", description="retorno usuario"),
+     * )
+     */
     function me(Request $request){
         return  response()->json($request->user()) ;
     }
+    /**
+     * @OA\Get(
+     *     path="/api/user?login={login}",
+     *     summary="Obtém um user pelo login",
+     *     tags={"Usuario"},
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Parameter(
+     *         name="login",
+     *         in="path",
+     *         description="login do usuario",
+     *         required=true
+     *     ),
+     *     @OA\Response(response="200", description="Uma lista de responsaveis"),
+     *
+     * )
+     */
     function getUserByLogin(Request $request){
 
         $data = $request->all();

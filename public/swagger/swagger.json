@@ -82,6 +82,52 @@
                     }
                 ]
             }
+        },
+        "/api/user/me": {
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Retorna o usuario corrente",
+                "operationId": "23a655d8871ff4920d42e22aad9c27c0",
+                "responses": {
+                    "200": {
+                        "description": "retorno usuario"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/user?login={login}": {
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Obtém um user pelo login",
+                "operationId": "4cd28658572d6e8121f6d9079a5591d4",
+                "parameters": [
+                    {
+                        "name": "login",
+                        "in": "path",
+                        "description": "login do usuario",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Uma lista de responsaveis"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -89,6 +135,8 @@
             "bearerToken": {
                 "type": "http",
                 "description": "Acess token obtido na autenticação",
+                "name": "Authorization",
+                "in": "header",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
             }
