@@ -8,6 +8,82 @@
         "version": "3.0.0"
     },
     "paths": {
+        "api/pre-registration/store": {
+            "post": {
+                "tags": [
+                    "Pre registro"
+                ],
+                "summary": "Cria um pré registro de usuário",
+                "description": "Cria um pre registro para proximo login de um usuário",
+                "operationId": "588b3272e726ee98118f38b483cad359",
+                "requestBody": {
+                    "description": "Json informações necessárias",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "login",
+                                    "role_id"
+                                ],
+                                "properties": {
+                                    "login": {
+                                        "description": "Login do usuario",
+                                        "type": "string"
+                                    },
+                                    "role_id": {
+                                        "description": "Role que será atribuída a um usuário",
+                                        "type": "number"
+                                    },
+                                    "laboratory_id": {
+                                        "description": "Laboratório que será atribuído do usuario",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registro criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Login não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
