@@ -127,7 +127,7 @@ class UserController extends Controller
                 ->first();
             $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])
                 ->first();
-           // return $user == null;
+           // return $info["id-institucional"];
             if ( is_null($user) ) {
 
                 $dataUser = [
@@ -160,10 +160,10 @@ class UserController extends Controller
                     $pre_register->update(["registered" => true]);
                 }
 
-                $user = User::create([
+                $user = User::create(
 
                    $dataUser
-                ]);
+                );
                 if(!is_null($role)){
                     $user->syncRoles([$role]);
                 }
@@ -203,7 +203,7 @@ class UserController extends Controller
      * )
      */
     function me(Request $request){
-        return  response()->json($request->user()) ;
+        return  response()->json(User::with("roles")->find($request->user()->id ) ) ;
     }
     /**
      * @OA\Get(
