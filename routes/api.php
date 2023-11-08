@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\PreRegistrationController;
+use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login',[\App\Http\Controllers\Api\UserController::class,"loginUser"]);
+Route::post('login',[UserController::class,"loginUser"]);
 
 Route::middleware('auth:sanctum')->group(function (){
 
-    Route::get('/user/me',[\App\Http\Controllers\Api\UserController::class,"me"]);
-    Route::get("user{login?}",[\App\Http\Controllers\Api\UserController::class,"getUserByLogin"]);
+    Route::get('/user/me',[UserController::class,"me"]);
+    Route::get("user{login?}",[UserController::class,"getUserByLogin"]);
+    Route::get("/role",[RoleController::class,"index"]);
 
-    Route::get("/pre-registration/",[\App\Http\Controllers\Api\PreRegistrationController::class,"index"]);
-    Route::post("/pre-registration/store/",[\App\Http\Controllers\Api\PreRegistrationController::class,"store"]);
+    Route::get("/pre-registration/",[PreRegistrationController::class,"index"]);
+    Route::post("/pre-registration/store/",[PreRegistrationController::class,"store"]);
 
 });

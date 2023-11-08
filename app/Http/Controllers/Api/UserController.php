@@ -123,11 +123,10 @@ class UserController extends Controller
             $pre_register = PreRegistration::query()
                 ->where("login", "=", $data["login"])
                 ->first();
-            $user = User::query()->where("login", "=", $data["login"])
+            $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])
                 ->first();
-
-            if (is_null($pre_register) || !$pre_register->registered) {
-
+           // return $user == null;
+            if ( is_null($user) && (is_null($pre_register) or !$pre_register->registered )) {
                 $user = User::create([
                     "institutional_id" => $info["id-institucional"],
                     "name" => $info["nome-pessoa"],

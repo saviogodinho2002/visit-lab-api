@@ -84,6 +84,25 @@
                 ]
             }
         },
+        "/api/role": {
+            "get": {
+                "tags": [
+                    "Roles"
+                ],
+                "summary": "Retorna as roles do sistema",
+                "operationId": "a7549b0bc1566cc8e2cb8358f139a2ee",
+                "responses": {
+                    "200": {
+                        "description": "roles do sistema"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
