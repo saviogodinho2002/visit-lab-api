@@ -122,24 +122,50 @@ class UserController extends Controller
             //dd($info);
             $pre_register = PreRegistration::query()
                 ->where("login", "=", $data["login"])
+                ->whereNot("registered")
+                ->orderBy("created_at","DESC")
                 ->first();
             $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])
                 ->first();
            // return $user == null;
-            if ( is_null($user) && (is_null($pre_register) or !$pre_register->registered )) {
-                $user = User::create([
+            if ( is_null($user) ) {
+
+                $dataUser = [
                     "institutional_id" => $info["id-institucional"],
                     "name" => $info["nome-pessoa"],
                     "login" => $info["login"],
                     "password" => Hash::make($data["password"]),
                     "photo_url" => $info["url-foto"],
-                    "laboratory_id" => $pre_register?->laboratory_id
-                ]);
+                ];
+                $role = null;
+                if(   !is_null($pre_register) ){
 
-                if (!is_null($pre_register) && $pre_register->role_id) {
+                    if ( $pre_register->role_id) {
+                        $role = Role::findById($pre_register->role_id);
+                    }
 
-                    $user->assignRole(Role::findById($pre_register->role_id)->name);
+                    switch ($role->name){
+                        case "admin":
+                            // nao tem relação direta com nenhum lab
+                            break;
+                        case "professor":
+                            //registrar no lab q o professor é coordenador
+                            break;
+                        case "monitor":
+                            $dataUser[ "laboratory_id"] = $pre_register?->laboratory_id;
+
+                            break;
+                    }
+
                     $pre_register->update(["registered" => true]);
+                }
+
+                $user = User::create([
+
+                   $dataUser
+                ]);
+                if(!is_null($role)){
+                    $user->syncRoles([$role]);
                 }
 
 
