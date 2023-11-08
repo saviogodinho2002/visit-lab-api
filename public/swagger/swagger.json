@@ -8,14 +8,14 @@
         "version": "3.0.0"
     },
     "paths": {
-        "api/pre-registration/store": {
+        "/api/pre-registration/store": {
             "post": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Cria um pré registro de usuário",
                 "description": "Cria um pre registro para proximo login de um usuário",
-                "operationId": "588b3272e726ee98118f38b483cad359",
+                "operationId": "11defe023e675722938d0873358e2bd6",
                 "requestBody": {
                     "description": "Json informações necessárias",
                     "required": true,

@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequestSIGAA;
 use App\Http\Requests\StorePreRegistrationRequest;
 use App\Http\Requests\UpdatePreRegistrationRequest;
+use App\Models\Laboratory;
 use App\Models\PreRegistration;
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 class PreRegistrationController extends Controller
 {
@@ -33,7 +36,7 @@ class PreRegistrationController extends Controller
      *
      * @OA\Post(
      *      tags={"Pre registro"},
-     *     path="api/pre-registration/store",
+     *     path="/api/pre-registration/store",
      *     description="Cria um pre registro para proximo login de um usuário",
      *         security={ {"bearerToken":{}} },
      *     @OA\RequestBody(
@@ -100,20 +103,36 @@ class PreRegistrationController extends Controller
                 "login"=>["required"],
 
                 "role_id"=>["required"],
-                "laboratory_id"=>[]
+                "laboratory_id"=>["nullable"]
             ]
         );
         try {
             $info = RequestSIGAA::get_info_user($validated ["login"]);
             $validated["user_id"] = $request->user()->id;
             $validated["email"] = $info["email"];
+
+            $role = Role::findById($validated["role_id"]);
+            if(
+                $request->laboratory_id != 0
+            ){
+
+                Laboratory::query()->findOrFail( $request->laboratory_id);
+            }
+
+
             $register  =  PreRegistration::create(
                 $validated
             );
 
             return response()->json($register);
-        }catch (\Throwable $e){
-            return response()->json("Login não encontrado",403);
+        }
+        catch (RoleDoesNotExist $roleError){
+
+            return response()->json("Role não encontrada ",400);
+        }
+        catch (\Throwable $e){
+
+            return response()->json("Login não encontrado".$e->getMessage(),400);
 
         }
 

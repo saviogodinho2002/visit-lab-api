@@ -20,13 +20,18 @@ class CreateRolesAndAdminSeeder extends Seeder
         try {
             DB::beginTransaction();
             $adminRole = \Spatie\Permission\Models\Role::create([
-                "name"=>"admin"
+                "name"=>"admin",
+                "guard"=>"sanctum"
+
             ]);
             $professorRole = \Spatie\Permission\Models\Role::create([
-                "name"=>"professor"
+                "name"=>"professor",
+                "guard"=>"sanctum"
+
             ]);
             $monitorRole = \Spatie\Permission\Models\Role::create([
-                "name"=>"monitor"
+                "name"=>"monitor",
+                "guard"=>"sanctum"
             ]);
             $user  =  PreRegistration::create(
                 [
