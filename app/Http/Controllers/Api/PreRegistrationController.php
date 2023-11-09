@@ -10,6 +10,7 @@ use App\Models\Laboratory;
 use App\Models\PreRegistration;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 class PreRegistrationController extends Controller
@@ -98,6 +99,7 @@ class PreRegistrationController extends Controller
 
     public function store(Request $request)
     {
+
         $validated = $request->validate(
             [
                 "login"=>["required"],
@@ -107,6 +109,7 @@ class PreRegistrationController extends Controller
             ]
         );
         try {
+            DB::beginTransaction();
             $info = RequestSIGAA::get_info_user($validated ["login"]);
             $validated["user_id"] = $request->user()->id;
             $validated["email"] = $info["email"];
@@ -123,16 +126,17 @@ class PreRegistrationController extends Controller
             $register  =  PreRegistration::create(
                 $validated
             );
-
+            DB::commit();
             return response()->json($register);
         }
         catch (RoleDoesNotExist $roleError){
-
+            DB::rollBack();
             return response()->json("Role não encontrada ",400);
         }
-        catch (\Throwable $e){
+        catch (\ErrorException $e){
+            DB::rollBack();
 
-            return response()->json("Login não encontrado".$e->getMessage(),400);
+            return response()->json("Login não encontrado",400);
 
         }
 
