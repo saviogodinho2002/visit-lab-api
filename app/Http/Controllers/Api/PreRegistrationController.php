@@ -241,18 +241,69 @@ class PreRegistrationController extends Controller
                 "response"=>["required","boolean"]
             ]
         );
-        $preRegistration->update(
-          [
-              "status"=> $validated["response"]?"a":"r"
-          ]
-        );
+        try{
+            DB::beginTransaction();
+            //begin
+            if($validated["response"]){
+
+                $user = $request->user();
+                $role = null;
+                if ( $preRegistration->role_id) {
+                    $role = Role::findById($preRegistration->role_id);
+                }
+                $dataUser = [];
+                switch ($role->name){
+                    case "admin":
+                        // nao tem relação direta com nenhum lab
+                        $dataUser["laboratory_id"] = null;
+                        $this->removeUserFromLaboratories($user);
+                        break;
+                    case "professor":
+                        //registrar no lab q o professor é coordenador
+                        $dataUser["laboratory_id"] = null;
+                        $laboratory = Laboratory::query()->find($preRegistration->laboratory_id);
+                        $laboratory->update(["user_id"=>$user->id]);
+                        break;
+                    case "monitor":
+                        $dataUser["laboratory_id"] = $preRegistration->laboratory_id;
+                        $this->removeUserFromLaboratories($user);
+
+                        break;
+                }
+                $user->update($dataUser);
+
+                if(!is_null($role)){
+                    $user->syncRoles([$role]);
+                }
+
+            }
+
+            //end
+            $preRegistration->update(
+                [
+                    "status"=> $validated["response"]?"a":"r"
+                ]
+            );
+            DB::commit();
+        }catch (\Throwable $e){
+            DB::rollBack();
+            throw $e;
+        }
 
         return response()->json([
             "message"=>"Atualizado com sucesso",
             "preRegistration"=>$preRegistration
         ], 201);
     }
-
+    private function removeUserFromLaboratories($user): void
+    {
+        Laboratory::query()
+            ->where("user_id","=",$user->id)
+            ->get()
+            ->each(function ($item) use ($user) {
+                $item->update(["user_id"=>null]);
+            });
+    }
     private function existsPreRegistrationPendentWith(string $login): bool
     {
         return PreRegistration::query()

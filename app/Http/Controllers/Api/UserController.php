@@ -120,11 +120,7 @@ class UserController extends Controller
 
             $info = RequestSIGAA::get_info_user($data["login"]);
             //dd($info);
-            $pre_register = PreRegistration::query()
-                ->where("login", "=", $data["login"])
-                ->where("status","=", "p")
-                ->orderBy("created_at","DESC")
-                ->first();
+
             $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])
                 ->first();
            // return $info["id-institucional"];
@@ -137,37 +133,11 @@ class UserController extends Controller
                     "password" => Hash::make($data["password"]),
                     "photo_url" => $info["url-foto"],
                 ];
-                $role = null;
-                if(   !is_null($pre_register) ){
-
-                    if ( $pre_register->role_id) {
-                        $role = Role::findById($pre_register->role_id);
-                    }
-
-                    switch ($role->name){
-                        case "admin":
-                            // nao tem relação direta com nenhum lab
-                            break;
-                        case "professor":
-                            //registrar no lab q o professor é coordenador
-                            break;
-                        case "monitor":
-                            $dataUser[ "laboratory_id"] = $pre_register?->laboratory_id;
-
-                            break;
-                    }
-
-                    $pre_register->update(["registered" => true]);
-                }
 
                 $user = User::create(
 
                    $dataUser
                 );
-                if(!is_null($role)){
-                    $user->syncRoles([$role]);
-                }
-
 
             } else {
                 $user->update(

@@ -49,6 +49,7 @@ class User extends Authenticatable
 
         'password' => 'hashed',
     ];
+    protected array $guard_name = ['sanctum','api', 'web'];
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
     }
