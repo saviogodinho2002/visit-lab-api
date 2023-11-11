@@ -26,7 +26,12 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get("/role",[RoleController::class,"index"]);
 
     Route::get("/pre-registration/",[PreRegistrationController::class,"index"]);
+    Route::get("/pre-registration/my/",[PreRegistrationController::class,"indexMy"]);
     Route::post("/pre-registration/store/",[PreRegistrationController::class,"store"])
         ->can("create,App\Models\PreRegistration");
+    Route::patch("/pre-registration/{preRegistration}",[PreRegistrationController::class,"acceptOrReject"])
+        ->can("update,App\Models\PreRegistration,preRegistration");
+    ;
+
 
 });

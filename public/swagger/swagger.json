@@ -8,6 +8,44 @@
         "version": "3.0.0"
     },
     "paths": {
+        "/api/pre-registration": {
+            "get": {
+                "tags": [
+                    "Pre registro"
+                ],
+                "summary": "Retorna os pre registro feitos pelo usuario",
+                "operationId": "04e21b7e6ed54cd70dd941ef7d3e1666",
+                "responses": {
+                    "200": {
+                        "description": "Retorna os pre registro feitos pelo usuario"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/pre-registration/my": {
+            "get": {
+                "tags": [
+                    "Pre registro"
+                ],
+                "summary": "Retorna o pre registro para o usuario",
+                "operationId": "e7d1219dbd4211968156fbfe64eb3308",
+                "responses": {
+                    "200": {
+                        "description": "Retorna o pre registro para o usuario"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/pre-registration/store": {
             "post": {
                 "tags": [
@@ -63,6 +101,81 @@
                     },
                     "404": {
                         "description": "Login não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/pre-registration/{preRegistration}": {
+            "patch": {
+                "tags": [
+                    "Pre registro"
+                ],
+                "summary": "Usuario aceita ou rejeita um cargo",
+                "description": "Atualiza o status de um pre registro",
+                "operationId": "44ceb9099bb999daaabd2a0d1f1f1eae",
+                "parameters": [
+                    {
+                        "name": "preRegistration",
+                        "in": "path",
+                        "description": "id do preregistro",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Json informações necessárias",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "response"
+                                ],
+                                "properties": {
+                                    "response": {
+                                        "description": "Resposta do usuario",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "formulario invalido",
                         "content": {
                             "application/json": {
                                 "schema": {

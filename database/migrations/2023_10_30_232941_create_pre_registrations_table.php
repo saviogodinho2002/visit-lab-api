@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("login");
             $table->string("email");
-            $table->boolean("registered")->default(false);
+            $table->enum("status",["p","a","r"])->default("p");
             $table->foreignIdFor(\App\Models\Role::class)->constrained();//cargo
             $table->foreignIdFor(\App\Models\Laboratory::class)->nullable()->constrained();
             $table->foreignIdFor(\App\Models\User::class)->nullable()->constrained();

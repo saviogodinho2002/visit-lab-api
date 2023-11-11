@@ -122,7 +122,7 @@ class UserController extends Controller
             //dd($info);
             $pre_register = PreRegistration::query()
                 ->where("login", "=", $data["login"])
-                ->whereNot("registered")
+                ->where("status","=", "p")
                 ->orderBy("created_at","DESC")
                 ->first();
             $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])

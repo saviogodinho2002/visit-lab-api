@@ -21,7 +21,9 @@ class PreRegistrationPolicy
      */
     public function view(User $user, PreRegistration $preRegistration): bool
     {
-        //
+
+        return ( $preRegistration->user_id == $user->id || $preRegistration->login == $user->login);
+
     }
 
     /**
@@ -30,7 +32,7 @@ class PreRegistrationPolicy
     public function create(User $user)
     {
         return $user->hasRole("admin") ? Response::allow()
-            : Response:: denyWithStatus(403,'Você não pode criar pré registros');;
+            : Response:: denyWithStatus(403,'Você não pode criar pré registros');
     }
 
     /**
@@ -38,7 +40,7 @@ class PreRegistrationPolicy
      */
     public function update(User $user, PreRegistration $preRegistration): bool
     {
-        //
+        return  $preRegistration->login == $user->login ;
     }
 
     /**
