@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\SigaaLoginTimeOutException;
+
 class SIGAALogin{
 
 
@@ -44,8 +46,8 @@ class SIGAALogin{
         $result = curl_exec($ch);
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         if (curl_errno($ch) == CURLE_OPERATION_TIMEOUTED) {
-            // Trate o timeout aqui, por exemplo, lançando uma exceção ou retornando false.
-            return throw new \Exception("Timeout");
+
+            return throw new SigaaLoginTimeOutException("Timeout");
         }
         $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         curl_close($ch);

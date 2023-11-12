@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\SigaaLoginTimeOutException;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequestSIGAA;
 use App\Http\Controllers\SIGAALogin;
@@ -104,18 +105,12 @@ class UserController extends Controller
         //;;$logou = SIGAALogin::login_sigaa($data["login"],$data["password"]);
         //$logou = RequestSIGAA::get_info_user("savio.gaia");
         //todo
-        /*
-         * Verificar se o usuario esta cadastrado para algum cargo
-         * Criar usuario atribuindo cargo se tiver
-         * logar
-         *
-         * Se ja existir, atualiza os dados na base local
-         * */
+        // ve se o sigaa caiu e ese ele existe no banco
         try {
             DB::beginTransaction();
             $login = SIGAALogin::login_sigaa($data["login"], $data["password"]);
             if (!$login) {
-                return response()->json("Usuário ou senha incorreto", 404);
+                return response()->json("Login não encontrado", 404);
             }
 
             $info = RequestSIGAA::get_info_user($data["login"]);
@@ -156,7 +151,11 @@ class UserController extends Controller
             //session(["userInfo"=>"teste"]);
             DB::commit();
             return  response()->json($token->plainTextToken) ;
-        }catch (\Throwable $e){
+        }catch (SigaaLoginTimeOutException $e){
+            DB::rollBack();
+            throw $e;
+        }
+        catch (\Throwable $e){
             DB::rollBack();
             throw $e;
         }
