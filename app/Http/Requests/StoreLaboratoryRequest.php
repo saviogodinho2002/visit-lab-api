@@ -24,7 +24,9 @@ class StoreLaboratoryRequest extends FormRequest
         return [
             "name"=>["required","string"],
             "local"=>["required"],
-            "user_id"=>["nullable"]
+            "user_id"=>["nullable"],
+            "login"=>["nullable"]
+
         ];
     }
 }

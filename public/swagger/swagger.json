@@ -8,6 +8,210 @@
         "version": "3.0.0"
     },
     "paths": {
+        "/api/laboratory": {
+            "get": {
+                "tags": [
+                    "Laboratorio"
+                ],
+                "summary": "Retorna os laboratorios. Usuario deve ser um professor ou administrador. Se for um professor, vai retornar apenas os laboratórios que ele é coordenador",
+                "operationId": "a82644e91b86e1ec8506f6eb6f314be0",
+                "responses": {
+                    "200": {
+                        "description": "Retorna os laboratórios"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/laboratory/": {
+            "post": {
+                "tags": [
+                    "Laboratorio"
+                ],
+                "summary": "Cria um laboratório",
+                "description": "Cria um laboratorio",
+                "operationId": "824905a101e613f95160dc7cb337b425",
+                "requestBody": {
+                    "description": "Json informações necessárias",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "local"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "nome do laboratório",
+                                        "type": "string"
+                                    },
+                                    "local": {
+                                        "description": "Local com predio e sala do laboratorio",
+                                        "type": "string"
+                                    },
+                                    "login": {
+                                        "description": "Login pra qual será criado uma solicitação para o usuário ser coordenador",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Registro criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Login não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/laboratory/{laboratory}": {
+            "get": {
+                "tags": [
+                    "Laboratorio"
+                ],
+                "summary": "Obtém um laboratorio pelo id",
+                "operationId": "a8ca12bc0074b3edfe7c04b084f416bb",
+                "parameters": [
+                    {
+                        "name": "laboratory",
+                        "in": "path",
+                        "description": "Id do laboratório",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pega um laboratorio"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Laboratorio"
+                ],
+                "summary": "Edita um laboratório",
+                "description": "Atualiza um laboratorio",
+                "operationId": "5978c024eab570fc6a336175f207ab69",
+                "parameters": [
+                    {
+                        "name": "laboratory",
+                        "in": "path",
+                        "description": "Id do laboratório",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "description": "Json informações necessárias",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "local"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "description": "nome do laboratório",
+                                        "type": "string"
+                                    },
+                                    "local": {
+                                        "description": "Local com predio e sala do laboratorio",
+                                        "type": "string"
+                                    },
+                                    "login": {
+                                        "description": "Login pra qual será criado uma solicitação para o usuário ser coordenador",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Registro atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Login não encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
         "/api/pre-registration": {
             "get": {
                 "tags": [
@@ -46,14 +250,14 @@
                 ]
             }
         },
-        "/api/pre-registration/store": {
+        "/api/pre-registration/": {
             "post": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Cria um pré registro de usuário",
                 "description": "Cria um pre registro para proximo login de um usuário",
-                "operationId": "11defe023e675722938d0873358e2bd6",
+                "operationId": "f4d1ab40b902f23480d4f60c5beed90b",
                 "requestBody": {
                     "description": "Json informações necessárias",
                     "required": true,

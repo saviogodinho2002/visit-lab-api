@@ -17,6 +17,15 @@ class LaboratoryController extends Controller
     /**
      * Display a listing of the resource.
      */
+    /**
+     * @OA\Get(
+     *     path="/api/laboratory",
+     *     tags={"Laboratorio"},
+     *     summary="Retorna os laboratorios. Usuario deve ser um professor ou administrador. Se for um professor, vai retornar apenas os laboratórios que ele é coordenador",
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Response(response="200", description="Retorna os laboratórios"),
+     * )
+     */
     public function index()
     {
         return response()->json(
@@ -37,6 +46,70 @@ class LaboratoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    /**
+     * Cria um laboratório
+     *
+     *
+     * @OA\Post(
+     *      tags={"Laboratorio"},
+     *     path="/api/laboratory/",
+     *     description="Cria um laboratorio",
+     *         security={ {"bearerToken":{}} },
+     *     @OA\RequestBody(
+     *         description="Json informações necessárias",
+     *         required=true,
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *
+     *     @OA\Schema(
+     *      type="object",
+     *                 required={
+     *     "name",
+     *       "local",
+     *
+     *
+     *
+     * },
+     *     @OA\Property (
+     *         property="name",
+     *         description="nome do laboratório",
+     *          type="string"
+     *     ),
+     *     @OA\Property (
+     *          property="local",
+     *          description="Local com predio e sala do laboratorio",
+     *           type="string"
+     *      ),
+     *     @OA\Property(
+     *         property="login",
+     *
+     *         description="Login pra qual será criado uma solicitação para o usuário ser coordenador",
+     *           type="number"
+     *     ),
+     *
+     *
+     *     ),
+     * ),
+     * ),
+     *  @OA\Response(
+     *    response=200,
+     *    description="Registro criado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="string"),
+     *    )
+     *  ),
+     *     @OA\Response(
+     *    response=404,
+     *    description="Login não encontrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string"),
+     *
+     *    )
+     *  )
+     *
+     * )
+     */
+
     public function store(StoreLaboratoryRequest $request)
     {
         $validated = $request->validated();
@@ -49,6 +122,22 @@ class LaboratoryController extends Controller
 
     /**
      * Display the specified resource.
+     */
+    /**
+     * @OA\Get(
+     *     path="/api/laboratory/{laboratory}",
+     *     summary="Obtém um laboratorio pelo id",
+     *     tags={"Laboratorio"},
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Parameter(
+     *         name="laboratory",
+     *         in="path",
+     *         description="Id do laboratório",
+     *         required=true
+     *     ),
+     *     @OA\Response(response="200", description="Pega um laboratorio"),
+     *
+     * )
      */
     public function show(Laboratory $laboratory)
     {
@@ -67,6 +156,76 @@ class LaboratoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    /**
+     * Edita um laboratório
+     *
+     *
+     * @OA\Put(
+     *      tags={"Laboratorio"},
+     *     path="/api/laboratory/{laboratory}",
+     *     description="Atualiza um laboratorio",
+     *         security={ {"bearerToken":{}} },
+     *          @OA\Parameter(
+     *          name="laboratory",
+     *          in="path",
+     *          description="Id do laboratório",
+     *          required=true
+     *      ),
+     *     @OA\RequestBody(
+     *         description="Json informações necessárias",
+     *         required=true,
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *
+     *     @OA\Schema(
+     *      type="object",
+     *                 required={
+     *     "name",
+     *       "local",
+     *
+     *
+     *
+     * },
+     *     @OA\Property (
+     *         property="name",
+     *         description="nome do laboratório",
+     *          type="string"
+     *     ),
+     *     @OA\Property (
+     *          property="local",
+     *          description="Local com predio e sala do laboratorio",
+     *           type="string"
+     *      ),
+     *     @OA\Property(
+     *         property="login",
+     *
+     *         description="Login pra qual será criado uma solicitação para o usuário ser coordenador",
+     *           type="number"
+     *     ),
+     *
+     *
+     *     ),
+     * ),
+     * ),
+     *  @OA\Response(
+     *    response=201,
+     *    description="Registro atualizado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="string"),
+     *    )
+     *  ),
+     *     @OA\Response(
+     *    response=404,
+     *    description="Login não encontrado",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string"),
+     *
+     *    )
+     *  )
+     *
+     * )
+     */
+
     public function update(UpdateLaboratoryRequest $request, Laboratory $laboratory)
     {
         $validated = $request->validated();
