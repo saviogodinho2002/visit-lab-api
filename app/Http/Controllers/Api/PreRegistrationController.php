@@ -17,6 +17,10 @@ use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 class PreRegistrationController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(PreRegistration::class,"laboratory");
+    }
     /**
      * Display a listing of the resource.
      */
@@ -68,7 +72,7 @@ class PreRegistrationController extends Controller
      *
      * @OA\Post(
      *      tags={"Pre registro"},
-     *     path="/api/pre-registration/store",
+     *     path="/api/pre-registration/",
      *     description="Cria um pre registro para proximo login de um usuário",
      *         security={ {"bearerToken":{}} },
      *     @OA\RequestBody(

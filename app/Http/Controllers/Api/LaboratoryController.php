@@ -6,15 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLaboratoryRequest;
 use App\Http\Requests\UpdateLaboratoryRequest;
 use App\Models\Laboratory;
+use Illuminate\Http\Request;
 
 class LaboratoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Laboratory::class,"laboratory");
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return response()->json(
+            Laboratory::query()
+            ->own()
+            ->get()
+        )   ;
     }
 
     /**
@@ -22,7 +31,7 @@ class LaboratoryController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -30,7 +39,12 @@ class LaboratoryController extends Controller
      */
     public function store(StoreLaboratoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated["user_id"] = null;
+        $lab = Laboratory::create($validated);
+
+        return response()->json($lab,200);
+
     }
 
     /**
@@ -38,7 +52,8 @@ class LaboratoryController extends Controller
      */
     public function show(Laboratory $laboratory)
     {
-        //
+        return response()->json($laboratory,200);
+
     }
 
     /**
@@ -54,7 +69,11 @@ class LaboratoryController extends Controller
      */
     public function update(UpdateLaboratoryRequest $request, Laboratory $laboratory)
     {
-        //
+        $validated = $request->validated();
+        $validated["user_id"] = null;
+         $laboratory->update($validated);
+
+        return response()->json($laboratory,201);
     }
 
     /**

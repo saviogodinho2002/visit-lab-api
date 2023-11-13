@@ -11,7 +11,8 @@ class UpdateLaboratoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return !is_null(request()->user());
+
     }
 
     /**
@@ -22,7 +23,9 @@ class UpdateLaboratoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name"=>["required","string"],
+            "local"=>["required"],
+            "user_id"=>["nullable"]
         ];
     }
 }

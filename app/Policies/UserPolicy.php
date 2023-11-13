@@ -2,16 +2,23 @@
 
 namespace App\Policies;
 
-use App\Models\PreRegistration;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class PreRegistrationPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
+    {
+        return true;
+    }
+    public function viewMe(User $user): bool
+    {
+        return true;
+    }
+    public function viewLogin(User $user,$login): bool
     {
         return $user->hasRole(["admin","professor"]);
     }
@@ -19,34 +26,31 @@ class PreRegistrationPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, PreRegistration $preRegistration): bool
+    public function view(User $user, User $model): bool
     {
-
-        return ( $preRegistration->user_id == $user->id || $preRegistration->login == $user->login);
-
+        //
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
-        return $user->hasRole("admin") ? Response::allow()
-            : Response:: denyWithStatus(403,'Você não pode criar pré registros');
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, PreRegistration $preRegistration): bool
+    public function update(User $user, User $model): bool
     {
-        return  $preRegistration->login == $user->login ;
+        //
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, PreRegistration $preRegistration): bool
+    public function delete(User $user, User $model): bool
     {
         //
     }
@@ -54,7 +58,7 @@ class PreRegistrationPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, PreRegistration $preRegistration): bool
+    public function restore(User $user, User $model): bool
     {
         //
     }
@@ -62,7 +66,7 @@ class PreRegistrationPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, PreRegistration $preRegistration): bool
+    public function forceDelete(User $user, User $model): bool
     {
         //
     }
