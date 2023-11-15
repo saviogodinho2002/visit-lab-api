@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\ApiSigaaTimeOutException;
 use App\Exceptions\SigaaLoginTimeOutException;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\RequestSIGAA;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use PhpParser\Node\Stmt\TryCatch;
+use function Laravel\Prompts\password;
 
 
 /**
@@ -105,62 +107,97 @@ class UserController extends Controller
         //;;$logou = SIGAALogin::login_sigaa($data["login"],$data["password"]);
         //$logou = RequestSIGAA::get_info_user("savio.gaia");
         //todo
-        // ve se o sigaa caiu e ese ele existe no banco
+        // ve se o sigaa caiu e es ele existe no banco
+        DB::beginTransaction();
+        $login = null;
+        $user = null;
+        $error = null;
         try {
-            DB::beginTransaction();
+
             $login = SIGAALogin::login_sigaa($data["login"], $data["password"]);
+
             if (!$login) {
                 return response()->json("Login não encontrado", 404);
             }
 
-            $info = RequestSIGAA::get_info_user($data["login"]);
-            //dd($info);
-
-            $user = User::query()->where("institutional_id", "like",  $info["id-institucional"])
+        }catch (SigaaLoginTimeOutException $e){
+            $user = User::query()->where("login", "like",  $data["login"])
                 ->first();
-           // return $info["id-institucional"];
-            if ( is_null($user) ) {
+            if(!is_null($user) ){ //se tiver usuaŕio
+                if(!$this->verifyPassword($user,$data["password"])){ // e a senha nao for valida
 
-                $dataUser = [
-                    "institutional_id" => $info["id-institucional"],
+                    return response()->json("Sigaa fora do ar. Senha inválida com último login no sistema", 400);
+                }
+            }else{ // nao tem usuario e sigaa fora do ar
+                return response()->json("Primeiro login do usuário no sistema e o SIGAA está fora do ar. Suas credenciais não podem ser validadas", 400);
+
+            }
+
+        }
+        //chegou aqui e user é null ->criar
+        // se não atualizar
+        $info = null;
+        try {
+
+            $info = RequestSIGAA::get_info_user($data["login"]); //no caso user vai sempre existir, ja que ja foi validado pelo sigaa
+
+        }
+        catch (ApiSigaaTimeOutException $e){
+
+        }
+        catch (\Throwable $e){
+
+        }
+        if ( is_null($user) && !is_null($info) ) {
+
+            $dataUser = [
+                "institutional_id" => $info["id-institucional"],
+                "name" => $info["nome-pessoa"],
+                "login" => $info["login"],
+                "password" => Hash::make($data["password"]),
+                "photo_url" => $info["url-foto"],
+            ];
+            $user = User::create(
+
+                $dataUser
+            );
+
+
+        } else if(!is_null($info)) {
+            $user->update(
+                [
                     "name" => $info["nome-pessoa"],
                     "login" => $info["login"],
                     "password" => Hash::make($data["password"]),
                     "photo_url" => $info["url-foto"],
-                ];
+                ]
+            );
 
-                $user = User::create(
-
-                   $dataUser
-                );
-
-            } else {
-                $user->update(
-                    [
-                        "name" => $info["nome-pessoa"],
-                        "login" => $info["login"],
-                        "password" => Hash::make($data["password"]),
-                        "photo_url" => $info["url-foto"],
-                    ]
-                );
-
-            }
-
-            $token = $user->createToken($user["institutional_id"]);
-
-            //session(["userInfo"=>"teste"]);
-            DB::commit();
-            return  response()->json($token->plainTextToken) ;
-        }catch (SigaaLoginTimeOutException $e){
+        }else{
             DB::rollBack();
-            throw $e;
-        }
-        catch (\Throwable $e){
-            DB::rollBack();
-            throw $e;
+            return response()->json("Não foi possível recuperar dados do usuário. Api Fora do ar", 400);
         }
 
+        $token = $user->createToken($user["institutional_id"]);
 
+
+        DB::commit();
+        return  response()->json($token->plainTextToken) ;
+
+
+    }
+    private function createUser($dataUser){
+
+
+        $user = User::create(
+
+            $dataUser
+        );
+        return $user;
+    }
+    private function verifyPassword( $user,$password): bool
+    {
+        return Hash::check($password, $user->password);
     }
     /**
      * @OA\Get(
