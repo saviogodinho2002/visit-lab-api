@@ -163,7 +163,7 @@ class UserController extends Controller
             );
 
 
-        } else if(!is_null($info)) {
+        } else if(!is_null($info)) { /// tem user e recuperou info
             $user->update(
                 [
                     "name" => $info["nome-pessoa"],
@@ -173,7 +173,16 @@ class UserController extends Controller
                 ]
             );
 
-        }else{
+        }else if(!is_null($user)){ // tem user e NAO recuperou info
+            $user->update(
+                [
+
+                    "login" => $data["login"],
+                    "password" => Hash::make($data["password"]),
+                ]
+            );
+        }
+        else{
             DB::rollBack();
             return response()->json("Não foi possível recuperar dados do usuário. Api Fora do ar", 400);
         }
