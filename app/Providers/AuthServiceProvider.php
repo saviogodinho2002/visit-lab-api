@@ -7,10 +7,12 @@ use App\Models\Laboratory;
 use App\Models\PreRegistration;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Visit;
 use App\Policies\LaboratoryPolicy;
 use App\Policies\PreRegistrationPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
+use App\Policies\VisitPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         Laboratory::class=>LaboratoryPolicy::class,
         Role::class=>RolePolicy::class,
         User::class=>UserPolicy::class,
+        Visit::class=>VisitPolicy::class
 
     ];
 

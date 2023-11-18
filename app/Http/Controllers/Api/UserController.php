@@ -110,7 +110,8 @@ class UserController extends Controller
         // ve se o sigaa caiu e es ele existe no banco
         DB::beginTransaction();
         $login = null;
-        $user = null;
+        $user = User::query()->where("login", "like",  $data["login"])
+            ->first();
         $error = null;
         try {
 
@@ -121,8 +122,7 @@ class UserController extends Controller
             }
 
         }catch (SigaaLoginTimeOutException $e){
-            $user = User::query()->where("login", "like",  $data["login"])
-                ->first();
+
             if(!is_null($user) ){ //se tiver usuaŕio
                 if(!$this->verifyPassword($user,$data["password"])){ // e a senha nao for valida
 
@@ -149,7 +149,7 @@ class UserController extends Controller
 
         }
         if ( is_null($user) && !is_null($info) ) {
-
+           // dd($user);
             $dataUser = [
                 "institutional_id" => $info["id-institucional"],
                 "name" => $info["nome-pessoa"],

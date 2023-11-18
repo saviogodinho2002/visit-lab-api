@@ -11,6 +11,10 @@ use Illuminate\Validation\Rule;
 
 class VisitController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Visit::class,"visit");
+    }
     /**
      * Display a listing of the resource.
      */
