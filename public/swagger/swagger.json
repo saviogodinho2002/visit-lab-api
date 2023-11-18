@@ -53,10 +53,6 @@
                                     "local": {
                                         "description": "Local com predio e sala do laboratorio",
                                         "type": "string"
-                                    },
-                                    "login": {
-                                        "description": "Login pra qual será criado uma solicitação para o usuário ser coordenador",
-                                        "type": "number"
                                     }
                                 },
                                 "type": "object"
@@ -532,6 +528,185 @@
                 "responses": {
                     "200": {
                         "description": "Uma lista de responsaveis"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/visit": {
+            "get": {
+                "tags": [
+                    "Visitas"
+                ],
+                "summary": "Retorna as visitas dos laboratorios",
+                "operationId": "a5be5246a0de1b9823484ecff2bf189d",
+                "responses": {
+                    "200": {
+                        "description": "Retorna as visitas dos laboratorios"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Visitas"
+                ],
+                "summary": "Cria uma visita.",
+                "description": "Cria uma visita",
+                "operationId": "dd0e97173da710be6a2586eabe8caa3a",
+                "requestBody": {
+                    "description": "Json com informações necessárias",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "visitor_name",
+                                    "visitor_document"
+                                ],
+                                "properties": {
+                                    "visitor_name": {
+                                        "description": "Nome do visitante",
+                                        "type": "string"
+                                    },
+                                    "visitor_document": {
+                                        "description": "Identificação do visitante",
+                                        "type": "string"
+                                    },
+                                    "laboratory_id": {
+                                        "description": "id do laboratorio onde foi feita visita",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Criado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Formulário inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/visit/{visit}": {
+            "get": {
+                "tags": [
+                    "Visitas"
+                ],
+                "summary": "Obtém uma visita pelo id",
+                "operationId": "37407286885515c01eac06e33f2cf488",
+                "parameters": [
+                    {
+                        "name": "visit",
+                        "in": "path",
+                        "description": "Id da visita",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pega um laboratorio"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Visitas"
+                ],
+                "summary": "Atualiza uma visita.",
+                "description": "Atualiza uma visita, colocando a data e hora de saída",
+                "operationId": "8bbc78342c21532e21dbe33a1f0a39b0",
+                "parameters": [
+                    {
+                        "name": "visit",
+                        "in": "path",
+                        "description": "Id da visita",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atualizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Formulário inválido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [

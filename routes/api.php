@@ -46,5 +46,6 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::apiResource("laboratory",\App\Http\Controllers\Api\LaboratoryController::class);
 
+    Route::apiResource("visit",\App\Http\Controllers\Api\VisitController::class);
 
 });
