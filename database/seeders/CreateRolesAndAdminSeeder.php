@@ -50,7 +50,7 @@ class CreateRolesAndAdminSeeder extends Seeder
             throw $e;
         }
 
-        //php atisan db:seed --class=CreateRolesAndAdminSeeder
+        //php artisan db:seed --class=CreateRolesAndAdminSeeder
 
 
     }

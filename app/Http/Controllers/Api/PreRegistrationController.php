@@ -153,12 +153,19 @@ class PreRegistrationController extends Controller
             $validated["email"] = $info["email"];
 
             $role = Role::findById($validated["role_id"]);
-            if (
-                $request->laboratory_id != 0
-            ) {
+
+            if($role->name == "admin" && $request->laboratory_id != 0 && !is_null($request->laboratory_id) ){
+                throw new \Exception("Admins não podem ser relacionados a nenhum laboratório diretamente");
+            }elseif ($role->name != "admin"  && ($request->laboratory_id == 0  || is_null($request->laboratory_id )) ){
+                throw new \Exception("Professores ou monitores devem estar relacionados à algum laboratório");
+
+            }
+
+            if (!is_null($request->laboratory_id ) &&  $request->laboratory_id !=  0  ) {
 
                 Laboratory::query()->findOrFail($request->laboratory_id);
             }
+
 
 
             $register = PreRegistration::create(
@@ -166,7 +173,7 @@ class PreRegistrationController extends Controller
             );
             DB::commit();
             return response()->json($register);
-        } catch (RoleDoesNotExist|\ErrorException|HasPreRegistrationPendentException  $e) {
+        } catch (RoleDoesNotExist|\ErrorException|HasPreRegistrationPendentException|\Exception  $e) {
             DB::rollBack();
 
             if ($e instanceof RoleDoesNotExist)

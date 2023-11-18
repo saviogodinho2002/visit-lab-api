@@ -15,6 +15,10 @@ class PreRegistrationPolicy
     {
         return $user->hasRole(["admin","professor"]);
     }
+    public function viewMy(User $user): bool
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can view the model.
