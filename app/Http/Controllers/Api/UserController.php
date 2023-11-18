@@ -218,7 +218,7 @@ class UserController extends Controller
      * )
      */
     function me(Request $request){
-        return  response()->json(User::with("roles")->find($request->user()->id ) ) ;
+        return  response()->json(User::with("roles","laboratories","laboratory")->find($request->user()->id ) ) ;
     }
     /**
      * @OA\Get(

@@ -53,5 +53,8 @@ class User extends Authenticatable
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
     }
+    public function laboratories(){
+        return $this->hasMany(Laboratory::class);
+    }
 
 }

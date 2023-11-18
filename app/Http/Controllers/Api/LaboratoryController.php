@@ -80,12 +80,7 @@ class LaboratoryController extends Controller
      *          description="Local com predio e sala do laboratorio",
      *           type="string"
      *      ),
-     *     @OA\Property(
-     *         property="login",
-     *
-     *         description="Login pra qual será criado uma solicitação para o usuário ser coordenador",
-     *           type="number"
-     *     ),
+
      *
      *
      *     ),
@@ -113,8 +108,19 @@ class LaboratoryController extends Controller
     public function store(StoreLaboratoryRequest $request)
     {
         $validated = $request->validated();
+        //$validated["user_id"] = null;
+        //$user_id = $validated["user_id"];
+
         $validated["user_id"] = null;
         $lab = Laboratory::create($validated);
+       /* if( !is_null($user_id) ){
+
+            $response = route("pre-registration.store",
+                [
+                    "user_id"=>$user_id
+                ]
+            );
+        }*/
 
         return response()->json($lab,200);
 
