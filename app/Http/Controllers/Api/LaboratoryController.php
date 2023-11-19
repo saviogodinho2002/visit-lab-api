@@ -244,8 +244,30 @@ class LaboratoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * @OA\Delete(
+     *     path="/api/laboratory/{laboratory}",
+     *     summary="Deleta um laboratorio pelo id",
+     *     tags={"Laboratorio"},
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Parameter(
+     *         name="laboratory",
+     *         in="path",
+     *         description="Id do laboratório",
+     *         required=true
+     *     ),
+     *     @OA\Response(response="200", description="Laboratorio deletado"),
+     *     @OA\Response(response="400", description="Erro"),
+     * )
+     */
     public function destroy(Laboratory $laboratory)
     {
-        //
+        if($laboratory->coordinator()->exists() || $laboratory->monitors()->exists()){
+            return response()->json("O laboratório possui coordenador ou monitores relacionados e não pode ser excluído", 400);
+
+        }
+        $laboratory->delete();
+        return response()->json("Laboratorio deletado",200);
+
     }
 }

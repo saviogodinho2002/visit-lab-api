@@ -206,6 +206,34 @@
                         "bearerToken": []
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "Laboratorio"
+                ],
+                "summary": "Deleta um laboratorio pelo id",
+                "operationId": "d01e45d27700dd4816fd34c9f21e992e",
+                "parameters": [
+                    {
+                        "name": "laboratory",
+                        "in": "path",
+                        "description": "Id do laboratório",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Laboratorio deletado"
+                    },
+                    "400": {
+                        "description": "Erro"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
             }
         },
         "/api/pre-registration": {

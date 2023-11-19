@@ -17,7 +17,10 @@ class Laboratory extends Model
             "user_id"
         ];
     public function coordinator(){
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,"user_id");
+    }
+    public function monitors(){
+        return $this->hasMany(User::class);
     }
     public function scopeOwn(Builder $query): void
     {
