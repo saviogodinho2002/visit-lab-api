@@ -13,7 +13,7 @@ O [Composer](https://getcomposer.org/) é uma ferramenta de gerenciamento de dep
 
 ### Mysql
 
-O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados.
+O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale ele através do site oficial.
 
 ## Instalação e Configuração
 
