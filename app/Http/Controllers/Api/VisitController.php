@@ -182,7 +182,7 @@ class VisitController extends Controller
     /**
      * Atualiza uma visita.
      *
-     * @OA\Post(
+     * @OA\Patch(
      *      tags={"Visitas"},
      *      path="/api/visit/{visit}",
      *      description="Atualiza uma visita, colocando a data e hora de saída",

@@ -687,13 +687,13 @@
                     }
                 ]
             },
-            "post": {
+            "patch": {
                 "tags": [
                     "Visitas"
                 ],
                 "summary": "Atualiza uma visita.",
                 "description": "Atualiza uma visita, colocando a data e hora de saída",
-                "operationId": "8bbc78342c21532e21dbe33a1f0a39b0",
+                "operationId": "85ac9e19d0c9c5c891bf5c9c1bdf952d",
                 "parameters": [
                     {
                         "name": "visit",
