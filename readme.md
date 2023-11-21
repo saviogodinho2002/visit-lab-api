@@ -10,6 +10,11 @@ Você precisará configurar um ambiente PHP no seu sistema. Caso esteja utilizan
 
 O [Composer](https://getcomposer.org/) é uma ferramenta de gerenciamento de dependências para o PHP. Você pode instalá-lo seguindo as instruções no site oficial.
 
+
+### Mysql
+
+O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados.
+
 ## Instalação e Configuração
 
 1. Clone este repositório para o seu sistema;
