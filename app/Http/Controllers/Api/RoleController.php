@@ -10,7 +10,7 @@ class RoleController extends Controller
 {
     /**
      * @OA\Get(
-     *     path="/api/role",
+     *     path="/api/roles",
      *     tags={"Roles"},
      *     summary="Retorna as roles do sistema",
      *          security={ {"bearerToken":{}} },

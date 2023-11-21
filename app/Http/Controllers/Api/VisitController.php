@@ -20,7 +20,7 @@ class VisitController extends Controller
      */
     /**
      * @OA\Get(
-     *     path="/api/visit",
+     *     path="/api/visits",
      *     tags={"Visitas"},
      *     summary="Retorna as visitas dos laboratorios",
      *          security={ {"bearerToken":{}} },
@@ -152,7 +152,7 @@ class VisitController extends Controller
      */
     /**
      * @OA\Get(
-     *     path="/api/visit/{visit}",
+     *     path="/api/visits/{visit}",
      *     summary="Obtém uma visita pelo id",
      *     tags={"Visitas"},
      *          security={ {"bearerToken":{}} },
@@ -184,7 +184,7 @@ class VisitController extends Controller
      *
      * @OA\Patch(
      *      tags={"Visitas"},
-     *      path="/api/visit/{visit}",
+     *      path="/api/visits/{visit}",
      *      description="Atualiza uma visita, colocando a data e hora de saída",
      *      security={ {"bearerToken":{}} },
      *      @OA\Parameter(

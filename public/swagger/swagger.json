@@ -8,13 +8,13 @@
         "version": "3.0.0"
     },
     "paths": {
-        "/api/laboratory": {
+        "/api/laboratories": {
             "get": {
                 "tags": [
                     "Laboratorio"
                 ],
                 "summary": "Retorna os laboratorios. Usuario deve ser um professor ou administrador. Se for um professor, vai retornar apenas os laboratórios que ele é coordenador",
-                "operationId": "a82644e91b86e1ec8506f6eb6f314be0",
+                "operationId": "4622a11d2d127d35109f12324df4e1d3",
                 "responses": {
                     "200": {
                         "description": "Retorna os laboratórios"
@@ -27,14 +27,14 @@
                 ]
             }
         },
-        "/api/laboratory/": {
+        "/api/laboratories/": {
             "post": {
                 "tags": [
                     "Laboratorio"
                 ],
                 "summary": "Cria um laboratório",
                 "description": "Cria um laboratorio",
-                "operationId": "824905a101e613f95160dc7cb337b425",
+                "operationId": "cc14cd4e39974fa28397a4c09f80513d",
                 "requestBody": {
                     "description": "Json informações necessárias",
                     "required": true,
@@ -99,13 +99,13 @@
                 ]
             }
         },
-        "/api/laboratory/{laboratory}": {
+        "/api/laboratories/{laboratory}": {
             "get": {
                 "tags": [
                     "Laboratorio"
                 ],
                 "summary": "Obtém um laboratorio pelo id",
-                "operationId": "a8ca12bc0074b3edfe7c04b084f416bb",
+                "operationId": "5b1c536adce5b2a3f6e9edd9d335d74b",
                 "parameters": [
                     {
                         "name": "laboratory",
@@ -131,7 +131,7 @@
                 ],
                 "summary": "Edita um laboratório",
                 "description": "Atualiza um laboratorio",
-                "operationId": "5978c024eab570fc6a336175f207ab69",
+                "operationId": "ce44ff2b2ecb3232d3ea92cb8b4d4dfa",
                 "parameters": [
                     {
                         "name": "laboratory",
@@ -212,7 +212,7 @@
                     "Laboratorio"
                 ],
                 "summary": "Deleta um laboratorio pelo id",
-                "operationId": "d01e45d27700dd4816fd34c9f21e992e",
+                "operationId": "81964c7b2bfeff8205cc4eee3526de0b",
                 "parameters": [
                     {
                         "name": "laboratory",
@@ -236,13 +236,13 @@
                 ]
             }
         },
-        "/api/pre-registration": {
+        "/api/pre-registrations": {
             "get": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Retorna os pre registro feitos pelo usuario",
-                "operationId": "04e21b7e6ed54cd70dd941ef7d3e1666",
+                "operationId": "f54ebc59cbd07913ac452384f29e4380",
                 "responses": {
                     "200": {
                         "description": "Retorna os pre registro feitos pelo usuario"
@@ -255,13 +255,13 @@
                 ]
             }
         },
-        "/api/pre-registration/my": {
+        "/api/pre-registrations/my": {
             "get": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Retorna o pre registro para o usuario",
-                "operationId": "e7d1219dbd4211968156fbfe64eb3308",
+                "operationId": "8fdef2f4ae4c193b9f367ea02ca9009e",
                 "responses": {
                     "200": {
                         "description": "Retorna o pre registro para o usuario"
@@ -274,14 +274,14 @@
                 ]
             }
         },
-        "/api/pre-registration/": {
+        "/api/pre-registrations/": {
             "post": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Cria um pré registro de usuário",
                 "description": "Cria um pre registro para proximo login de um usuário",
-                "operationId": "f4d1ab40b902f23480d4f60c5beed90b",
+                "operationId": "a8b315528bb9d3dc581af2374fc3979a",
                 "requestBody": {
                     "description": "Json informações necessárias",
                     "required": true,
@@ -350,14 +350,14 @@
                 ]
             }
         },
-        "/api/pre-registration/{preRegistration}": {
+        "/api/pre-registrations/{preRegistration}": {
             "patch": {
                 "tags": [
                     "Pre registro"
                 ],
                 "summary": "Usuario aceita ou rejeita um cargo",
                 "description": "Atualiza o status de um pre registro",
-                "operationId": "44ceb9099bb999daaabd2a0d1f1f1eae",
+                "operationId": "8e5ff4a0343a98e8c8fc9fcedbb58afd",
                 "parameters": [
                     {
                         "name": "preRegistration",
@@ -425,13 +425,13 @@
                 ]
             }
         },
-        "/api/role": {
+        "/api/roles": {
             "get": {
                 "tags": [
                     "Roles"
                 ],
                 "summary": "Retorna as roles do sistema",
-                "operationId": "a7549b0bc1566cc8e2cb8358f139a2ee",
+                "operationId": "ca86f0a206144dfbd695b749b4b28f9d",
                 "responses": {
                     "200": {
                         "description": "roles do sistema"
@@ -519,32 +519,13 @@
                 ]
             }
         },
-        "/api/user/me": {
-            "get": {
-                "tags": [
-                    "Usuario"
-                ],
-                "summary": "Retorna o usuario corrente",
-                "operationId": "23a655d8871ff4920d42e22aad9c27c0",
-                "responses": {
-                    "200": {
-                        "description": "retorno usuario"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerToken": []
-                    }
-                ]
-            }
-        },
-        "/api/user?login={login}": {
+        "/api/users?login={login}": {
             "get": {
                 "tags": [
                     "Usuario"
                 ],
                 "summary": "Obtém um user pelo login",
-                "operationId": "4cd28658572d6e8121f6d9079a5591d4",
+                "operationId": "30677557c8a560f412f2f954a850a6ed",
                 "parameters": [
                     {
                         "name": "login",
@@ -565,13 +546,40 @@
                 ]
             }
         },
-        "/api/visit": {
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Usuario"
+                ],
+                "summary": "Obtém um user pelo id",
+                "operationId": "6f51bd5fa2dddcd25e44cfa53dcbd10a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do usuario",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Um usuario"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerToken": []
+                    }
+                ]
+            }
+        },
+        "/api/visits": {
             "get": {
                 "tags": [
                     "Visitas"
                 ],
                 "summary": "Retorna as visitas dos laboratorios",
-                "operationId": "a5be5246a0de1b9823484ecff2bf189d",
+                "operationId": "bc48af561c011aaa53460ba7418472c0",
                 "responses": {
                     "200": {
                         "description": "Retorna as visitas dos laboratorios"
@@ -582,7 +590,9 @@
                         "bearerToken": []
                     }
                 ]
-            },
+            }
+        },
+        "/api/visit": {
             "post": {
                 "tags": [
                     "Visitas"
@@ -661,13 +671,13 @@
                 ]
             }
         },
-        "/api/visit/{visit}": {
+        "/api/visits/{visit}": {
             "get": {
                 "tags": [
                     "Visitas"
                 ],
                 "summary": "Obtém uma visita pelo id",
-                "operationId": "37407286885515c01eac06e33f2cf488",
+                "operationId": "cb8723179b9e5dd335f103ac055eacc4",
                 "parameters": [
                     {
                         "name": "visit",
@@ -693,7 +703,7 @@
                 ],
                 "summary": "Atualiza uma visita.",
                 "description": "Atualiza uma visita, colocando a data e hora de saída",
-                "operationId": "85ac9e19d0c9c5c891bf5c9c1bdf952d",
+                "operationId": "099f41a7ce3ce333c3f1cde29de8ba05",
                 "parameters": [
                     {
                         "name": "visit",

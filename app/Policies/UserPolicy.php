@@ -28,7 +28,11 @@ class UserPolicy
      */
     public function view(User $user, User $model): bool
     {
-        //
+        return
+            //true;
+            $user->id == $model->id ||
+            $user->hasRole(["admin"]) ||
+            ($user->hasRole(["professor"]) && $model->laboratory()->exists()  && $model->laboratory()->first()->user_id == $user->id);
     }
 
     /**

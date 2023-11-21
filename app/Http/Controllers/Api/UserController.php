@@ -10,6 +10,7 @@ use App\Http\Controllers\SIGAALogin;
 use App\Models\PreRegistration;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -39,6 +40,10 @@ use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+       $this->authorizeResource(User::class,"user");
+    }
 
     /**
      * Loga um  usuário.
@@ -186,7 +191,7 @@ class UserController extends Controller
             DB::rollBack();
             return response()->json("Não foi possível recuperar dados do usuário. Api Fora do ar", 400);
         }
-
+        $user->tokens()->delete();
         $token = $user->createToken($user["institutional_id"]);
 
 
@@ -208,21 +213,11 @@ class UserController extends Controller
     {
         return Hash::check($password, $user->password);
     }
+
+
     /**
      * @OA\Get(
-     *     path="/api/user/me",
-     *     tags={"Usuario"},
-     *     summary="Retorna o usuario corrente",
-     *          security={ {"bearerToken":{}} },
-     *     @OA\Response(response="200", description="retorno usuario"),
-     * )
-     */
-    function me(Request $request){
-        return  response()->json(User::with("roles","laboratories","laboratory")->find($request->user()->id ) ) ;
-    }
-    /**
-     * @OA\Get(
-     *     path="/api/user?login={login}",
+     *     path="/api/users?login={login}",
      *     summary="Obtém um user pelo login",
      *     tags={"Usuario"},
      *          security={ {"bearerToken":{}} },
@@ -249,6 +244,26 @@ class UserController extends Controller
             }
         }
         return  response()->json($info) ;
+    }
+    /**
+     * @OA\Get(
+     *     path="/api/users/{id}",
+     *     summary="Obtém um user pelo id",
+     *     tags={"Usuario"},
+     *          security={ {"bearerToken":{}} },
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID do usuario",
+     *         required=true
+     *     ),
+     *     @OA\Response(response="200", description="Um usuario"),
+     *
+     * )
+     */
+    public function show(User $user){
+        return  response()->json(User::with("roles","laboratories","laboratory")->find($user->id ) ) ;
+
     }
 
 

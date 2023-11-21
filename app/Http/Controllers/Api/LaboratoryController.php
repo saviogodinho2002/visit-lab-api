@@ -19,7 +19,7 @@ class LaboratoryController extends Controller
      */
     /**
      * @OA\Get(
-     *     path="/api/laboratory",
+     *     path="/api/laboratories",
      *     tags={"Laboratorio"},
      *     summary="Retorna os laboratorios. Usuario deve ser um professor ou administrador. Se for um professor, vai retornar apenas os laboratórios que ele é coordenador",
      *          security={ {"bearerToken":{}} },
@@ -52,7 +52,7 @@ class LaboratoryController extends Controller
      *
      * @OA\Post(
      *      tags={"Laboratorio"},
-     *     path="/api/laboratory/",
+     *     path="/api/laboratories/",
      *     description="Cria um laboratorio",
      *         security={ {"bearerToken":{}} },
      *     @OA\RequestBody(
@@ -131,7 +131,7 @@ class LaboratoryController extends Controller
      */
     /**
      * @OA\Get(
-     *     path="/api/laboratory/{laboratory}",
+     *     path="/api/laboratories/{laboratory}",
      *     summary="Obtém um laboratorio pelo id",
      *     tags={"Laboratorio"},
      *          security={ {"bearerToken":{}} },
@@ -168,7 +168,7 @@ class LaboratoryController extends Controller
      *
      * @OA\Put(
      *      tags={"Laboratorio"},
-     *     path="/api/laboratory/{laboratory}",
+     *     path="/api/laboratories/{laboratory}",
      *     description="Atualiza um laboratorio",
      *         security={ {"bearerToken":{}} },
      *          @OA\Parameter(
@@ -246,7 +246,7 @@ class LaboratoryController extends Controller
      */
     /**
      * @OA\Delete(
-     *     path="/api/laboratory/{laboratory}",
+     *     path="/api/laboratories/{laboratory}",
      *     summary="Deleta um laboratorio pelo id",
      *     tags={"Laboratorio"},
      *          security={ {"bearerToken":{}} },
