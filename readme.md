@@ -23,6 +23,15 @@ O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale 
 4. Configure seu ambiente de desenvolvimento de acordo com suas necessidades específicas, como o banco de dados, servidor web, etc;
 5. Inicie o servidor web (por exemplo, Apache) e certifique-se de que o PHP esteja configurado corretamente.
 
+## URLS
+
+Devem ser declaradas no .env as urls para a API da UFOPA e para a autenticação do SIGAA. Esses dados devem ser fornecidos pelo CTIC, menos o de autenticação do SIGAA.
+
+API_SIGAA_BASE_URL=[api da ufopa]
+API_KEY_SIGAA=[chave de api]
+API_AUTHENTICATION_SIGAA=https://autenticacao.ufopa.edu.br/
+
+
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
