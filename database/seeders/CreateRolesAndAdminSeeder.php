@@ -37,8 +37,8 @@ class CreateRolesAndAdminSeeder extends Seeder
                 [
 
 
-                    "login"=>"savio.gaia",
-                    "email"=>"saviogmoiagaia@gmail.com",
+                    "login"=>"SEU LOGIN",
+                    "email"=>"SEU EMAIL",
                     "role_id"=>$adminRole->id,
 
 

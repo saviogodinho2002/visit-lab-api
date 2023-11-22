@@ -15,11 +15,12 @@ O [Composer](https://getcomposer.org/) é uma ferramenta de gerenciamento de dep
 
 O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale ele através do site oficial.
 
+
 ## Instalação e Configuração
 
 1. Clone este repositório para o seu sistema;
 2. Navegue até o diretório do projeto;
-3. Execute o Composer para instalar as dependências do PHP;
+3. Execute o Composer para instalar as dependências do Laravel;
 4. Configure seu ambiente de desenvolvimento de acordo com suas necessidades específicas, como o banco de dados, servidor web, etc;
 5. Inicie o servidor web (por exemplo, Apache) e certifique-se de que o PHP esteja configurado corretamente.
 
@@ -31,6 +32,14 @@ API_SIGAA_BASE_URL=[api da ufopa]
 API_KEY_SIGAA=[chave de api]
 API_AUTHENTICATION_SIGAA=https://autenticacao.ufopa.edu.br/
 
+## Usuario Administrador
+Em [seeders](database%2Fseeders), na seed [CreateRolesAndAdminSeeder.php](database%2Fseeders%2FCreateRolesAndAdminSeeder.php) coloque o seu usuário do SIGAAAna criação da PreRegistration pra criar o primeiro adminstrador do sistema.
+
+Após isso execute
+
+php artisan migrate
+
+php artisan DB:seed
 
 ## Licença
 
