@@ -30,7 +30,7 @@ function showUUID(application){
                     </a>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-3    ">
                     <div class="p-6 text-gray-900">Suas aplicações</div>
                     <div class="flex flex-wrap justify-around space-y-1">
 
