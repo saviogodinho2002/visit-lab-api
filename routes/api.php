@@ -17,34 +17,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('login',[UserController::class,"loginUser"]);
+Route::middleware('checkApplicationKey')->group(function () {
+    Route::post('login',[UserController::class,"loginUser"]);
 
-Route::middleware('auth:sanctum')->group(function (){
+    Route::middleware('auth:sanctum')->group(function (){
 
-    Route::get("users{login?}",[UserController::class,"getUserByLogin"])
-        ->can("viewLogin,App\Models\User,login");
-    Route::apiResource("users",UserController::class);
-
-
-
-
-    Route::get("/roles",[RoleController::class,"index"])
-        ->can("viewAny,App\Models\Role");
+        Route::get("users{login?}",[UserController::class,"getUserByLogin"])
+            ->can("viewLogin,App\Models\User,login");
+        Route::apiResource("users",UserController::class);
 
 
-    Route::get("/pre-registrations/",[PreRegistrationController::class,"index"])
-        ->can("viewAny,App\Models\PreRegistration");
-    Route::get("/pre-registrations/my/",[PreRegistrationController::class,"indexMy"])
-        ->can("viewMy,App\Models\PreRegistration");
 
-    Route::post("/pre-registrations/",[PreRegistrationController::class,"store"])
-        ->can("create,App\Models\PreRegistration")
-        ->name("pre-registration.store");
-    Route::patch("/pre-registrations/{preRegistration}",[PreRegistrationController::class,"acceptOrReject"])
-        ->can("update,App\Models\PreRegistration,preRegistration");
 
-    Route::apiResource("laboratories",\App\Http\Controllers\Api\LaboratoryController::class);
+        Route::get("/roles",[RoleController::class,"index"])
+            ->can("viewAny,App\Models\Role");
 
-    Route::apiResource("visits",\App\Http\Controllers\Api\VisitController::class);
 
+        Route::get("/pre-registrations/",[PreRegistrationController::class,"index"])
+            ->can("viewAny,App\Models\PreRegistration");
+        Route::get("/pre-registrations/my/",[PreRegistrationController::class,"indexMy"])
+            ->can("viewMy,App\Models\PreRegistration");
+
+        Route::post("/pre-registrations/",[PreRegistrationController::class,"store"])
+            ->can("create,App\Models\PreRegistration")
+            ->name("pre-registration.store");
+        Route::patch("/pre-registrations/{preRegistration}",[PreRegistrationController::class,"acceptOrReject"])
+            ->can("update,App\Models\PreRegistration,preRegistration");
+
+        Route::apiResource("laboratories",\App\Http\Controllers\Api\LaboratoryController::class);
+
+        Route::apiResource("visits",\App\Http\Controllers\Api\VisitController::class);
+
+    });
 });
