@@ -34,7 +34,20 @@ Route::get('/dashboard', function () {
         ->get();
 
     return Inertia::render('Dashboard',compact("applications"));
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth'])->name('dashboard');
+Route::get('/log-applications', function () {
+    $applicationLogs= \App\Models\ApplicationsRequestLog::query()
+        ->with("application")
+        ->whereHas("application",function (\Illuminate\Contracts\Database\Query\Builder $builder){
+            $builder
+                ->where("user_id","=",\Illuminate\Support\Facades\Auth::user()->id);
+
+        })
+        ->get();
+
+    return Inertia::render('LogApplication/IndexLogApplication',compact("applicationLogs"));
+})->middleware(['auth'])->name('log-applications');
+
 
 Route::middleware('auth')->group(function () {
     Route::resource("applications",\App\Http\Controllers\ApplicationController::class);
