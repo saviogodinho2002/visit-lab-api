@@ -13,14 +13,14 @@ import Modal from "@/Components/Modal.vue";
 
 
 const props = defineProps({
-    states: Array,
+    application: Array,
 })
 
 
 const form = useForm({
-
-    name:"",
-
+    state_id:"",
+    name:props.application.name,
+    acronym:"",
 
 
 })
@@ -38,7 +38,7 @@ const setErrorModal = (value) => {
 };
 
 const submit = () => {
-    form.post(route('applications.store'), {
+    form.put(route('applications.update',props.application), {
         onSuccess: () =>{
             //form.reset()
         },

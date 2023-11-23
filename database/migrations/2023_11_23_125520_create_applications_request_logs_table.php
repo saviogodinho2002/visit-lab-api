@@ -20,7 +20,9 @@ return new class extends Migration
             $table->ipAddress('ip');
             $table->text('user_agent')->nullable();
             $table->foreignIdFor(\App\Models\Application::class)
-                ->constrained();
+                ->nullable()
+                ->constrained()
+                ;
             $table->timestamps();
         });
     }

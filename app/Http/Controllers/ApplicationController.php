@@ -24,7 +24,7 @@ class ApplicationController extends Controller
      */
     public function create()
     {
-        if(Auth::user()->hasRole("admin")){
+        if(!Auth::user()->hasRole("admin")){
             return redirect()->back();
         }
         return Inertia::render("Application/CreateApplication");
@@ -56,7 +56,10 @@ class ApplicationController extends Controller
      */
     public function edit(Application $application)
     {
-        //
+        if(!Auth::user()->hasRole("admin")){
+            return redirect()->back();
+        }
+        return Inertia::render("Application/EditApplication",["application"=>  $application]);
     }
 
     /**
@@ -64,7 +67,9 @@ class ApplicationController extends Controller
      */
     public function update(UpdateApplicationRequest $request, Application $application)
     {
-        //
+        $validated = $request->validated();
+        $application->update($validated);
+        return redirect()->route("dashboard");
     }
 
     /**
@@ -72,6 +77,11 @@ class ApplicationController extends Controller
      */
     public function destroy(Application $application)
     {
-        //
+      $application->logs()->get()->each->delete();
+      $application->delete();
+
+      return redirect()->route("dashboard");
+
+
     }
 }

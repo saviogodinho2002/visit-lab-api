@@ -41,12 +41,12 @@ Route::get('/log-applications', function () {
         return redirect()->back();
     }
     $applicationLogs= \App\Models\ApplicationsRequestLog::query()
-        ->with("application")
-        ->whereHas("application",function (\Illuminate\Contracts\Database\Query\Builder $builder){
+        ->with("application.user")
+       /* ->whereHas("application",function (\Illuminate\Contracts\Database\Query\Builder $builder){
             $builder
                 ->where("user_id","=",\Illuminate\Support\Facades\Auth::user()->id);
 
-        })
+        })*/
         ->get();
 
     return Inertia::render('LogApplication/IndexLogApplication',compact("applicationLogs"));
