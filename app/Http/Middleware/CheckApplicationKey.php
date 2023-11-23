@@ -25,15 +25,18 @@ class CheckApplicationKey
         if (is_null($application)){
             return response()->json(['error' => 'Chave de aplicação inválida.'], 401);
         }
-        ApplicationsRequestLog::create([
-            'method' => $request->method(),
-            'path' => $request->path(),
-            'query_parameters' => json_encode($request->query()),
-            'headers' => json_encode($request->headers->all()),
-            'ip' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-            "application_id"=>$application->id
-        ]);
+        //if(!$request->user()->hasRole(["admin"])){
+
+            ApplicationsRequestLog::create([
+                'method' => $request->method(),
+                'path' => $request->path(),
+                'query_parameters' => json_encode($request->query()),
+                'headers' => json_encode($request->headers->all()),
+                'ip' => $request->ip(),
+                'user_agent' => $request->userAgent(),
+                "application_id"=>$application->id
+            ]);
+     //   }
 
 
         return $next($request);

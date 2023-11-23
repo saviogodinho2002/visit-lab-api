@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -36,6 +37,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard',compact("applications"));
 })->middleware(['auth'])->name('dashboard');
 Route::get('/log-applications', function () {
+    if(!Auth::user()->hasRole("admin")){
+        return redirect()->back();
+    }
     $applicationLogs= \App\Models\ApplicationsRequestLog::query()
         ->with("application")
         ->whereHas("application",function (\Illuminate\Contracts\Database\Query\Builder $builder){

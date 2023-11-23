@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreApplicationRequest;
 use App\Http\Requests\UpdateApplicationRequest;
 use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use function Termwind\render;
 
@@ -23,6 +24,9 @@ class ApplicationController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->hasRole("admin")){
+            return redirect()->back();
+        }
         return Inertia::render("Application/CreateApplication");
     }
 
