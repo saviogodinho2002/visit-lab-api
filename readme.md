@@ -15,14 +15,23 @@ O [Composer](https://getcomposer.org/) é uma ferramenta de gerenciamento de dep
 
 O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale ele através do site oficial.
 
-
+### Node
+A versão LTS no  [Node](https://nodejs.org/en) pode ser baixado diretamente pelo site.
 ## Instalação e Configuração
 
 1. Clone este repositório para o seu sistema;
 2. Navegue até o diretório do projeto;
 3. Execute o Composer para instalar as dependências do Laravel;
+```
+composer install
+```
 4. Configure seu ambiente de desenvolvimento de acordo com suas necessidades específicas, como o banco de dados, servidor web, etc;
-5. Inicie o servidor web (por exemplo, Apache) e certifique-se de que o PHP esteja configurado corretamente.
+5. Execute o npm para instalar as dependência do node;
+ ```
+npm install
+npm run build
+```
+6. Inicie o servidor web (por exemplo, Apache) e certifique-se de que o PHP esteja configurado corretamente.
 
 ## URLS
 
@@ -35,11 +44,17 @@ API_AUTHENTICATION_SIGAA=https://autenticacao.ufopa.edu.br/
 ## Usuario Administrador
 Em [seeders](database%2Fseeders), na seed [CreateRolesAndAdminSeeder.php](database%2Fseeders%2FCreateRolesAndAdminSeeder.php) coloque o seu usuário do SIGAAAna criação da PreRegistration pra criar o primeiro adminstrador do sistema.
 
-Após isso execute
-
+Após isso execute:
+```shell
 php artisan migrate
 
 php artisan DB:seed
+```
+Depois, rode a aplicação com:
+```shell
+php artisan serve
+```
+Abra no navegador e entre com as credenciais do SIGAA. O primeiro usuário administrador deve aceitar o seu pré registro para criar outras aplicações e permitir o uso via API.
 
 ## Documentos
 Os documentos do projeto estão em [docs](docs).
