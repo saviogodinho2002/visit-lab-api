@@ -43,7 +43,7 @@ class RequestSIGAA{
         $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         // Adiciona verificação de timeout
-        if ($result === false) {
+        if ($result === false || $status_code == 408) {
             $error_message = curl_error($ch);
             curl_close($ch);
             throw new ApiSigaaTimeOutException();
