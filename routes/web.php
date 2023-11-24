@@ -55,6 +55,12 @@ Route::get('/log-applications', function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource("applications",\App\Http\Controllers\ApplicationController::class);
+    Route::get("pre-registrations",[\App\Http\Controllers\PreRegistrationController::class,"index"])
+        ->can("viewMy,App\Models\PreRegistration")
+        ->name("pre-registrations.index");;
+    Route::put("pre-registrations/{preRegistration}",[\App\Http\Controllers\PreRegistrationController::class,"update"])
+        ->can("update,App\Models\PreRegistration,preRegistration")
+        ->name("pre-registrations.update");;
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -19,7 +19,7 @@ class PreRegistrationController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(PreRegistration::class,"laboratory");
+        $this->authorizeResource(PreRegistration::class,"pre_registration");
     }
     /**
      * Display a listing of the resource.
@@ -260,7 +260,7 @@ class PreRegistrationController extends Controller
                 $user = $request->user();
                 $role = null;
                 if ( $preRegistration->role_id) {
-                    $role = Role::findById($preRegistration->role_id);
+                    $role = \Spatie\Permission\Models\Role::findById($preRegistration->role_id);
                 }
                 $dataUser = [];
                 switch ($role->name){

@@ -28,6 +28,12 @@ class PreRegistration extends Model
     public function laboratory(){
         return $this->belongsTo(Laboratory::class);
     }
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
     /*
      * @scope
