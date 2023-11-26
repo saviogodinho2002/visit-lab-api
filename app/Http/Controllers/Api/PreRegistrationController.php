@@ -152,7 +152,7 @@ class PreRegistrationController extends Controller
             $validated["user_id"] = $request->user()->id;
             $validated["email"] = $info["email"];
 
-            $role = Role::findById($validated["role_id"]);
+            $role = \Spatie\Permission\Models\Role::findById($validated["role_id"]);
 
             if($role->name == "admin" && $request->laboratory_id != 0 && !is_null($request->laboratory_id) ){
                 throw new \Exception("Admins não podem ser relacionados a nenhum laboratório diretamente");

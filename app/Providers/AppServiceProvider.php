@@ -22,7 +22,21 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        URL::forceRootUrl(config('app.url'));
+
+        if (env('APP_ENV') == 'local') {
+            //URL::forceSchema('https');
+
+           // $this->setEnvironmentValue("APP_URL","http://localhost:8000");
+        }elseif(env('APP_ENV') == 'ngrok') {
+
+
+            //URL::forceRootUrl(env("APP_URL"));
+            //$this->setEnvironmentValue("APP_URL",env("API_URL"));
+        }
+        URL::forceRootUrl(env("APP_URL"));
+
+        //URL::forceSchema("http");
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
     }
+
 }
