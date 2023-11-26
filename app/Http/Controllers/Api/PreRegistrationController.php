@@ -37,6 +37,8 @@ class PreRegistrationController extends Controller
     {
         return response()->json(
             PreRegistration::query()
+                ->with(["role","laboratory"])
+
                 ->where("user_id",'=', $request->user()->id)
                 ->get());
     }
@@ -53,6 +55,7 @@ class PreRegistrationController extends Controller
     {
         return response()->json(
             PreRegistration::query()
+                ->with(["role","laboratory"])
                 ->where("login",'=', $request->user()->login)
                 ->get());
     }

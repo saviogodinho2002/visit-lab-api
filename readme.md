@@ -17,6 +17,13 @@ O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale 
 
 ### Node
 A versão LTS no  [Node](https://nodejs.org/en) pode ser baixado diretamente pelo site.
+
+### Ngrok
+O [ngrok](https://dashboard.ngrok.com/get-started/setup) tem instruções de instalações no site. 
+Para funcionar bem no laravel deve seguir os passos dessa [url](https://wallacemaxters.com.br/blog/60/utilizando-ngrok-com-laravel), MAS DEIXE http://localhost:8000 EM APP_URL. 
+
+
+
 ## Instalação e Configuração
 
 1. Clone este repositório para o seu sistema;
@@ -56,6 +63,8 @@ php artisan serve
 ```
 Abra no navegador e entre com as credenciais do SIGAA. O primeiro usuário administrador deve aceitar o seu pré registro para criar outras aplicações e permitir o uso via API.
 
+## Problema
+INFELIZMENTE, se abrir a interface web do LARAVEL através do ngrok não vai funcionar, abra no localhost mesmo (colocando APP_URL como http://localhost:8000). Tentei resolver, não consegui.
 ## Documentos
 Os documentos do projeto estão em [docs](docs).
 ## Licença
