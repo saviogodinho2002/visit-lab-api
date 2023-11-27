@@ -31,6 +31,7 @@ class VisitController extends Controller
     {
         $visits =
             Visit::query()
+                ->with(["laboratory"])
             ->own()
             ->get();
         return response()->json($visits);
@@ -132,7 +133,7 @@ class VisitController extends Controller
                 }
             }
             date_default_timezone_set("America/Santarem");
-            $validated["entry_at"] = now()->toDateString();
+            $validated["entry_at"] = date("Y-m-d H:i:s");
             $validated["user_id"] =$request->user()->id;
             return response()->json(
                 Visit::create(
@@ -216,9 +217,11 @@ class VisitController extends Controller
         if(!is_null($visit->out_at)){
             return response()->json("Essa visita ja foi atualizada", 400);
         }
+        date_default_timezone_set("America/Santarem");
+
         $visit->update(
             [
-                "out_at"=>now()->toDateString()
+                "out_at"=>date("Y-m-d H:i:s")
             ]
         );
         return response()->json($visit);
