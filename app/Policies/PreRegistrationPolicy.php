@@ -35,8 +35,7 @@ class PreRegistrationPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole("admin") ? Response::allow()
-            : Response:: denyWithStatus(403,'Você não pode criar pré registros');
+        return $user->hasRole(["admin","professor"]) ;
     }
 
     /**

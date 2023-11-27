@@ -14,7 +14,7 @@ class LaboratoryPolicy
     public function viewAny(User $user): bool
     {
         return
-            $user->hasRole(["admin","professor"]);
+            $user->hasRole(["admin","professor","monitor"]);
     }
 
     /**
