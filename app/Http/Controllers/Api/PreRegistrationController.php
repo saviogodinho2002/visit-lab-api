@@ -29,7 +29,7 @@ class PreRegistrationController extends Controller
      *     path="/api/pre-registrations",
      *     tags={"Pre registro"},
      *     summary="Retorna os pre registro feitos pelo usuario",
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\Response(response="200", description="Retorna os pre registro feitos pelo usuario"),
      * )
      */
@@ -47,7 +47,7 @@ class PreRegistrationController extends Controller
      *     path="/api/pre-registrations/my",
      *     tags={"Pre registro"},
      *     summary="Retorna o pre registro para o usuario",
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}}},
      *     @OA\Response(response="200", description="Retorna o pre registro para o usuario"),
      * )
      */
@@ -77,7 +77,7 @@ class PreRegistrationController extends Controller
      *      tags={"Pre registro"},
      *     path="/api/pre-registrations/",
      *     description="Cria um pre registro para proximo login de um usuário",
-     *         security={ {"bearerToken":{}} },
+     *         security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\RequestBody(
      *         description="Json informações necessárias",
      *         required=true,
@@ -196,7 +196,7 @@ class PreRegistrationController extends Controller
      *      tags={"Pre registro"},
      *     path="/api/pre-registrations/{preRegistration}",
      *     description="Atualiza o status de um pre registro",
-     *         security={ {"bearerToken":{}} },
+     *         security={ {"bearerToken":{}} ,    {"api_key": {}}},
      *          @OA\Parameter(
      *          name="preRegistration",
      *          in="path",

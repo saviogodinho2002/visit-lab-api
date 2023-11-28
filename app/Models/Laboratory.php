@@ -27,6 +27,9 @@ class Laboratory extends Model
         if(Auth::user()->hasRole(["professor"])){
             $query
                 ->where("user_id",'=', Auth::user()->id);
+        }elseif(Auth::user()->hasRole(["monitor"])){
+            $query
+                ->where("id",'=', Auth::user()->laboratory_id);
         }
     }
 }

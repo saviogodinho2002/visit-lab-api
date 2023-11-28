@@ -27,16 +27,28 @@ use function Laravel\Prompts\password;
  *     email="saviogmoiagaia@gmail.com"
  *   )
  * ),
- ** @OA\SecurityScheme(
- *  type="http",
- *  description="Acess token obtido na autenticação",
- *   name="Authorization",
- *   in="header",
- *  scheme="bearer",
- *  bearerFormat="JWT",
- *  securityScheme="bearerToken"
- * )
+ * @OA\SecurityScheme(
+ *     type="http",
+ *     description="Access token obtido na autenticação",
+ *     name="Authorization",
+ *     in="header",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ *     securityScheme="bearerToken"
+ * ),
+ * @OA\SecurityScheme(
+ *     type="apiKey",
+ *     in="header",
+ *     securityScheme="api_key",
+ *     name="X-Application-Key",
+ *     description="Chave de aplicação para autenticação na API"
+ * ),
+ * security={
+ *   {"bearerToken": {}},
+ *   {"api_key": {}}
+ * }
  */
+
 
 class UserController extends Controller
 {
@@ -53,7 +65,10 @@ class UserController extends Controller
      *      tags={"Usuario"},
      *     path="/api/login",
      *     description="Loga",
-     *         security={ {"bearerToken":{}} },
+     *         security={
+     *     {"bearerToken":{}},
+     *        {"api_key": {}}
+     *     },
      *     @OA\RequestBody(
      *         description="Json com login e senha do usuario",
      *         required=true,
@@ -220,7 +235,9 @@ class UserController extends Controller
      *     path="/api/users?login={login}",
      *     summary="Obtém um user pelo login",
      *     tags={"Usuario"},
-     *          security={ {"bearerToken":{}} },
+     *          security={
+     *     {"bearerToken":{}},
+     *        {"api_key": {}} },
      *     @OA\Parameter(
      *         name="login",
      *         in="path",
@@ -250,7 +267,10 @@ class UserController extends Controller
      *     path="/api/users/{id}",
      *     summary="Obtém um user pelo id",
      *     tags={"Usuario"},
-     *          security={ {"bearerToken":{}} },
+     *          security={
+     *     {"bearerToken":{}},
+     *        {"api_key": {}}
+     *      },
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

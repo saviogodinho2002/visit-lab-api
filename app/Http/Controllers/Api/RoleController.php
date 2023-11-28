@@ -13,7 +13,7 @@ class RoleController extends Controller
      *     path="/api/roles",
      *     tags={"Roles"},
      *     summary="Retorna as roles do sistema",
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\Response(response="200", description="roles do sistema"),
      * )
      */

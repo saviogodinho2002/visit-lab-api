@@ -22,7 +22,7 @@ class LaboratoryController extends Controller
      *     path="/api/laboratories",
      *     tags={"Laboratorio"},
      *     summary="Retorna os laboratorios. Usuario deve ser um professor ou administrador. Se for um professor, vai retornar apenas os laboratórios que ele é coordenador",
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\Response(response="200", description="Retorna os laboratórios"),
      * )
      */
@@ -54,7 +54,9 @@ class LaboratoryController extends Controller
      *      tags={"Laboratorio"},
      *     path="/api/laboratories/",
      *     description="Cria um laboratorio",
-     *         security={ {"bearerToken":{}} },
+     *         security={ {"bearerToken":{},   {"api_key": {}}},
+     *         {"api_key": {}}
+     *      },
      *     @OA\RequestBody(
      *         description="Json informações necessárias",
      *         required=true,
@@ -134,7 +136,7 @@ class LaboratoryController extends Controller
      *     path="/api/laboratories/{laboratory}",
      *     summary="Obtém um laboratorio pelo id",
      *     tags={"Laboratorio"},
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\Parameter(
      *         name="laboratory",
      *         in="path",
@@ -170,7 +172,7 @@ class LaboratoryController extends Controller
      *      tags={"Laboratorio"},
      *     path="/api/laboratories/{laboratory}",
      *     description="Atualiza um laboratorio",
-     *         security={ {"bearerToken":{}} },
+     *         security={ {"bearerToken":{}},   {"api_key": {}} },
      *          @OA\Parameter(
      *          name="laboratory",
      *          in="path",
@@ -249,7 +251,7 @@ class LaboratoryController extends Controller
      *     path="/api/laboratories/{laboratory}",
      *     summary="Deleta um laboratorio pelo id",
      *     tags={"Laboratorio"},
-     *          security={ {"bearerToken":{}} },
+     *          security={ {"bearerToken":{}},   {"api_key": {}} },
      *     @OA\Parameter(
      *         name="laboratory",
      *         in="path",

@@ -187,7 +187,7 @@ class VisitController extends Controller
      *      tags={"Visitas"},
      *      path="/api/visits/{visit}",
      *      description="Atualiza uma visita, colocando a data e hora de saída",
-     *      security={ {"bearerToken":{}} },
+     *      security={ {"bearerToken":{}},    {"api_key": {}} },
      *      @OA\Parameter(
      *          name="visit",
      *          in="path",
