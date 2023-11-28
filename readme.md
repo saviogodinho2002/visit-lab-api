@@ -16,7 +16,7 @@ O [Composer](https://getcomposer.org/) é uma ferramenta de gerenciamento de dep
 O [Mysql](https://www.mysql.com/) é o SGDB usado para salvar os dados. Instale ele através do site oficial.
 
 ### Node
-A versão LTS no  [Node](https://nodejs.org/en) pode ser baixado diretamente pelo site.
+A versão LTS no  [Node](https://nodejs.org/en) pode ser baixado diretamente pelo site. O node é necessário porque tem a interface web usando o framework [Vue](https://vuejs.org/)
 
 ### Ngrok
 O [ngrok](https://dashboard.ngrok.com/get-started/setup) tem instruções de instalações no site. 
@@ -45,7 +45,9 @@ npm run build
 Devem ser declaradas no .env as urls para a API da UFOPA e para a autenticação do SIGAA. Esses dados devem ser fornecidos pelo CTIC, menos o de autenticação do SIGAA.
 
 API_SIGAA_BASE_URL=[api da ufopa]
+
 API_KEY_SIGAA=[chave de api]
+
 API_AUTHENTICATION_SIGAA=https://autenticacao.ufopa.edu.br/
 
 ## Usuario Administrador
@@ -66,7 +68,7 @@ Abra no navegador e entre com as credenciais do SIGAA. O primeiro usuário admin
 ## Problema
 INFELIZMENTE, se abrir a interface web do LARAVEL através do ngrok não vai funcionar, abra no localhost mesmo (colocando APP_URL como http://localhost:8000). Tentei resolver, não consegui.
 ## Documentos
-Os documentos do projeto estão em [docs](docs).
+Os documentos do projeto estão em [docs](docs). Na pasta [swagger](public%2Fswagger) você encontra [swagger.json](public%2Fswagger%2Fswagger.json) onde está documentada a API.
 ## Licença
 
 Este projeto está licenciado sob a Licença MIT - consulte o arquivo [LICENSE](LICENSE) para obter detalhes.
