@@ -2,6 +2,9 @@
 
 Este projeto tem como objetivo fornecer um sistema de gerenciamento de laboratórios para a UFOPA (Universidade Federal do Oeste do Pará). Para executar este projeto, você precisará das seguintes dependências:
 
+## Detalhe
+Não foi feito as funcionalidades para Agendamento do laboratório.
+
 ## Dependências PHP
 
 Você precisará configurar um ambiente PHP no seu sistema. Caso esteja utilizando o Windows, uma opção popular é o [XAMPP](https://www.apachefriends.org/index.html). Certifique-se de que o PHP esteja instalado e funcionando corretamente.
